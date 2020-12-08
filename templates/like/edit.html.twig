@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <h2>{% if personLikeProduct.person %}Edycja polubienia{% else %}Dodaj polubienie{% endif %}</h2>
+  {{ form_start(form) }}
+    {{ form_row(form.person) }}
+    {{ form_row(form.product) }}
+    <a href="{{ path('likes') }}">Powrót</a>
+    <button class="btn btn-primary" type="submit">Zapisz</button>
+  {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+  <script>
+      $(function (){
+          $('.js-data-product-ajax').select2({
+              minimumInputLength: 3,
+              ajax: {
+                  url: '{{ path('product_search') }}',
+                  data: function (params) {
+                      var query = {
+                          search: params.term
+                      }
+                      return query;
+                  },
+                  processResults: function (data) {
+                      return {
+                          results: data
+                      };
+                  },
+              }
+          });
+
+          $('.js-data-person-ajax').select2({
+              minimumInputLength: 3,
+              ajax: {
+                  url: '{{ path('person_search') }}',
+                  data: function (params) {
+                      var query = {
+                          search: params.term
+                      }
+                      return query;
+                  },
+                  processResults: function (data) {
+                      return {
+                          results: data
+                      };
+                  },
+              }
+          });
+      });
+  </script>
+{% endblock %}

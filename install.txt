@@ -1,0 +1,4 @@
+1. Zainstaluj biblioteki projektu poprzez wywołanie komendy composer install
+2. Stwórz bazę poprzez wywołanie komendy php bin/console doctrine:database:create
+3. Stwórz schemat bazy poprzez wywołanie komendy php bin/console doctrine:schema:update --force
+4. Uruchom serwer poprzez wywołanie komendy symfony server:start

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <h2>Użytkownicy</h2>
+  <a class="btn btn-primary" href="{{ path('user_add') }}">Dodaj użytkownika</a>
+
+  <div class="mt-3 mb-3">
+    {{ form_start(filterForm) }}
+    {{ form_row(filterForm.state) }}
+    {{ form_row(filterForm.search) }}
+    <button class="btn btn-primary" type="submit">Szukaj</button>
+    {{ form_end(filterForm) }}
+  </div>
+
+  <p>Wszystkich: {{ persons.getTotalItemCount }}</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ knp_pagination_sortable(persons, 'ID', 'p.id') }}</th>
+        <th>{{ knp_pagination_sortable(persons, 'Login', 'p.login') }}</th>
+        <th>{{ knp_pagination_sortable(persons, 'Firstname', 'p.firstname') }}</th>
+        <th>{{ knp_pagination_sortable(persons, 'Lastname', 'p.lastname') }}</th>
+        <th>{{ knp_pagination_sortable(persons, 'State', 'p.state') }}</th>
+        <th>{{ knp_pagination_sortable(persons, 'State', 'p.state') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for person in persons %}
+      <tr>
+        <td>{{ person.id }}</td>
+        <td>{{ person.login }}</td>
+        <td>{{ person.firstname }}</td>
+        <td>{{ person.lastname }}</td>
+        <td>{{ person.stateName }}</td>
+        <td>
+          <a href="{{ path('user_edit', {id: person.id}) }}">Szczegóły</a> |
+          <a class="text-danger" href="{{ path('user_delete', {id: person.id}) }}">Usuń</a>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="6" class="t-center">
+          Brak wyników
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {{ knp_pagination_render(persons) }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <h2>{% if product.id %}Edycja produktu{% else %}Dodaj produkt{% endif %}</h2>
+  {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.info) }}
+    {{ form_row(form.publicDate) }}
+    <a href="{{ path('products') }}">Powrót</a>
+    <button class="btn btn-primary" type="submit">Zapisz</button>
+  {{ form_end(form) }}
+{% endblock %}
